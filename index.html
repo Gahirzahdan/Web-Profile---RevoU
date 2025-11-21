@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Company Profile</title>
+    <style>
+        /* --- CSS styling di sini --- */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header img {
+            height: 30px;
+            cursor: pointer;
+        }
+
+        nav button {
+            margin-left: 10px;
+            padding: 8px 15px;
+            border: none;
+            background-color: #48a9e6;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        nav button:hover {
+            background-color: #2c7ac9;
+        }
+
+        main {
+            padding: 20px;
+            min-height: 200px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        main h1 {
+            margin-bottom: 5px;
+        }
+
+        main p {
+            color: #555;
+        }
+
+        .headquarters {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            gap: 60px;
+        }
+
+        .location {
+            text-align: center;
+        }
+
+        .location-circle {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #bbb;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+
+        .location label {
+            font-weight: 600;
+        }
+
+        form {
+            max-width: 450px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            padding: 8px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 1em;
+            resize: vertical;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button[type="submit"] {
+            width: fit-content;
+            padding: 10px 20px;
+            border: none;
+            background-color: #48a9e6;
+            color: white;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2c7ac9;
+        }
+
+        .message-output {
+            border: 1px solid #ccc;
+            background-color: #fafafa;
+            padding: 12px;
+            margin: 20px;
+            white-space: pre-line;
+            font-family: monospace;
+            max-width: 450px;
+            min-height: 120px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+        }
+
+        /* Responsive */
+        @media(max-width: 600px){
+            .headquarters {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            form, .message-output {
+                max-width: 100%;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://em-content.zobj.net/source/microsoft-teams/337/slightly-frowning-face_1f641.png" alt="Logo" />
+    <nav>
+        <button type="button">Home</button>
+        <button type="button">Our Profile</button>
+        <button type="button">Portfolio</button>
+        <button type="button">Message Us</button>
+    </nav>
+</header>
+
+<main>
+    <h1>Hi , Selamat Datang</h1>
+    <p>Ini adalah website aku yang pertama</p>
+</main>
+
+<section class="headquarters">
+    <div class="location">
+        <div class="location-circle"></div>
+        <label>Jakarta</label>
+    </div>
+    <div class="location">
+        <div class="location-circle"></div>
+        <label>Bandung</label>
+    </div>
+    <div class="location">
+        <div class="location-circle"></div>
+        <label>Surabaya</label>
+    </div>
+</section>
+
+<section style="display:flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 20px;">
+    <!-- Form Message Us -->
+    <form id="contactForm" novalidate>
+        <h2>Message Us</h2>
+
+        <label for="name">Nama</label>
+        <input type="text" id="name" name="name" placeholder="Nama" required />
+
+        <label for="email">Tempat Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" required />
+
+        <label for="phone">Nomor Telepon</label>
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number" required pattern="^\+?\d{10,15}$" />
+
+        <label>Jenis Kelamin</label>
+        <select id="gender" name="gender" required>
+            <option value="">Pilih Jenis Kelamin</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select>
+
+        <label for="message">Pesan</label>
+        <textarea id="message" name="message" placeholder="Pesan Anda..." required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Output Message Box -->
+    <div class="message-output" id="outputBox" aria-live="polite">
+        <!-- Info hasil submit akan tampil di sini -->
+    </div>
+</section>
+
+<footer>
+    Created by Rizal
+</footer>
+
+<script>
+    // JavaScript Validasi Form dan Output Data
+
+    document.getElementById('contactForm').addEventListener('submit', function(event){
+        event.preventDefault();
+
+        // Ambil nilai input
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const gender = document.getElementById('gender').value;
+        const message = document.getElementById('message').value.trim();
+        const outputBox = document.getElementById('outputBox');
+        
+        // Validasi sederhana
+        if(name === ''){
+            alert('Nama harus diisi!');
+            return;
+        }
+
+        if(email === '' || !validateEmail(email)){
+            alert('Email tidak valid atau kosong!');
+            return;
+        }
+
+        if(phone === '' || !validatePhone(phone)){
+            alert('Nomor telepon tidak valid atau kosong! Gunakan format angka 10-15 digit, bisa diawali +');
+            return;
+        }
+
+        if(gender === ''){
+            alert('Pilih jenis kelamin!');
+            return;
+        }
+
+        if(message === ''){
+            alert('Pesan tidak boleh kosong!');
+            return;
+        }
+
+        // Jika valid, tampilkan info waktu dan data input
+        const currentTime = new Date().toString();
+
+        const outputText = 
+`Current time: ${currentTime}
+Nama: ${name}
+Email: ${email}
+Nomor Telepon: ${phone}
+Jenis Kelamin: ${gender}
+Pesan: ${message}`;
+
+        outputBox.textContent = outputText;
+
+        // Bersihkan form setelah submit (optional)
+        this.reset();
+    });
+
+    // Fungsi validasi email dengan regex sederhana
+    function validateEmail(email){
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email.toLowerCase());
+    }
+
+    // Fungsi validasi nomor telepon
+    // Format: 10-15 digit angka boleh diawali +
+    function validatePhone(phone){
+        const re = /^\+?\d{10,15}$/;
+        return re.test(phone);
+    }
+</script>
+
+</body>
+</html>
